@@ -46,7 +46,7 @@ public class CubeController : MonoBehaviour
     {
         if (!_canJump) return;
         _rb.AddForce(Random.Range(jumpForce.min, jumpForce.max) * Vector3.up);
-        _rb.AddTorque(Random.Range(torqueForce.min, torqueForce.max) * Random.Range(-1, 2) * Vector3.right);
+        _rb.AddTorque(Random.Range(torqueForce.min, torqueForce.max) * Vector3.right);
         _localRound = GameManager.Instance.GlobalRound;
     }
 

@@ -18,12 +18,6 @@ public class UIController : MonoBehaviour
         GameManager.Instance.OnGameEnd += EndGame;
     }
 
-    private void OnDisable()
-    {
-        GameManager.Instance.OnScoreUpdate -= OnScoreUpdate;
-        GameManager.Instance.OnGameEnd -= EndGame;
-    }
-    
     private void EndGame(bool isWin)
     {
         _endGameTitle.text = isWin ? "You Win" : "You Lose";

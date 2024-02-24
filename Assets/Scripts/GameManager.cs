@@ -13,7 +13,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private GameObject _cubePrefab;
     [SerializeField] private Bounds _spawningBounds;
-    public List<CubeController> _cubes = new List<CubeController>();
+    [SerializeField] private List<CubeController> _cubes = new List<CubeController>();
     private Dictionary<int, int> _scoreRound = new Dictionary<int, int>();
     private List<int> _roundsInstantiated = new List<int>();
     private int _globalRound;
@@ -91,6 +91,7 @@ public class GameManager : Singleton<GameManager>
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        _inputReader.EnableInput();
         _running = true;
         _cubes = new List<CubeController>();
         _scoreRound = new Dictionary<int, int>();
