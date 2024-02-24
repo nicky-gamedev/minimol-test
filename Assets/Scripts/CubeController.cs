@@ -25,51 +25,34 @@ public class CubeController : MonoBehaviour
     }
     
     [Header("References")]
-    [SerializeField] private InputReader _inputReader;
     [SerializeField] private Rigidbody _rb;
 
     [Header("Parameters")] 
     [SerializeField] private MinMax jumpForce;
     [SerializeField] private MinMax torqueForce;
-    
-    //other variables
-    public event Action OnRoundFinish = delegate {};
-    public event Action OnRoundStart = delegate {};
-    
+
     private CubeFace _lastLocal;
     private bool _ignoreNextContact;
     private bool _canJump;
-    private int _localRound;
+    public int _localRound;
 
     private void Awake()
     {
         _lastLocal = FaceInDirection(Vector3.forward);
         _ignoreNextContact = true;
-        _canJump = true;
-    }
-    
-    private void OnEnable()
-    {
-        _inputReader.JumpEvent += OnJump;
-    }
-    
-    private void OnDisable()
-    {
-        _inputReader.JumpEvent -= OnJump;
     }
 
-    private void OnJump()
+    public void Jump()
     {
         if (!_canJump) return;
         _rb.AddForce(Random.Range(jumpForce.min, jumpForce.max) * Vector3.up);
         _rb.AddTorque(Random.Range(torqueForce.min, torqueForce.max) * Random.Range(-1, 2) * Vector3.right);
-        _localRound = GameManager.Instance.GlobalRound + 1;
-        OnRoundStart();
+        _localRound = GameManager.Instance.GlobalRound;
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Plane") && !_ignoreNextContact)
+        if (other.gameObject.CompareTag("Plane"))
         {
             StartCoroutine(FaceChecker());
         }
@@ -91,17 +74,16 @@ public class CubeController : MonoBehaviour
     IEnumerator FaceChecker()
     {
         while (!_rb.IsSleeping()) yield return null;
-
         var local = FaceInDirection(Vector3.forward);
-        if (_lastLocal != local)
+        if (_lastLocal != local && !_ignoreNextContact)
         {
-            GameManager.Instance.AddScore(1);
+            GameManager.Instance.AddScore(1, _localRound);
             GameManager.Instance.NewCube(_localRound);
         }
+        _localRound = GameManager.Instance.GlobalRound + 1;
+        GameManager.Instance.UpdateRound(_localRound);
         _lastLocal = local;
         _canJump = true;
-        _localRound = GameManager.Instance.GlobalRound;
-        OnRoundFinish();
     }
     
     public CubeFace FaceInDirection(Vector3 worldDirection) {
