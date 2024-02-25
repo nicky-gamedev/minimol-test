@@ -1848,18 +1848,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4639713764419187288, guid: 3dd466e4859f1154b8cbf91c7a38f1a1,
         type: 3}
-      propertyPath: _inputReader
-      value: 
-      objectReference: {fileID: 1847571074}
-    - target: {fileID: 4639713764419187288, guid: 3dd466e4859f1154b8cbf91c7a38f1a1,
-        type: 3}
-      propertyPath: jumpForce.max
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 4639713764419187288, guid: 3dd466e4859f1154b8cbf91c7a38f1a1,
-        type: 3}
-      propertyPath: torqueForce.min
-      value: 10
+      propertyPath: torqueForce.max
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4639713764419187295, guid: 3dd466e4859f1154b8cbf91c7a38f1a1,
         type: 3}

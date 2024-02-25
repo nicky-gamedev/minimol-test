@@ -127,11 +127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12181bb8f3b78764e964b7cc3f6d5954, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputReader: {fileID: 0}
   _rb: {fileID: 4639713764419187289}
   jumpForce:
     min: 300
-    max: 500
+    max: 400
   torqueForce:
-    min: 0
-    max: 30
+    min: 10
+    max: 20
+  _localRound: 0
